@@ -23,8 +23,11 @@ $(document).ready(function() {
     addNavLinks();
   });
 
-  randomBackgroundImage();
+  $(document).on('click', '.wiki', function(){   //due to 'created' element
+    getWiki(lat, lng);
+  });
 
+  randomBackgroundImage();
 });
 
 function randomBackgroundImage() {
@@ -80,29 +83,40 @@ function getRequest(locationInput){
   });
 }
 
-function getWiki() {
+function getWiki(lat, lng) {
   var params = {
     prop: 'coordinates|pageimages|pageterms',
     colimit: 50,
     piprop: 'thumbnail',
     pithumbsize: 144,
     pilimit: 50,
+    format: 'json',
     wbptterms: 'description',
     generator: 'geosearch',
     ggscoord: lat + '|' + lng,
     ggsradius: 10000,
-    ggslimit: 50
+    ggslimit: 100
   };
   url = 'https://en.wikipedia.org/w/api.php?action=query';
 
-  $.getJSON(url, params).complete(function(data){
-    console.log(data);
-  })
-}
+  $.getJSON(url, params, function(data){
+    $.each(data, function(index, value){
+      $.each(value.pages, function(index, object){
+        console.log(object);
+        var marker = new google.maps.Marker({
+          position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
+          map: map,
+          title: object.title,
+          url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
+          })
+        });
+      })
+    })
+};
 
 function initMap(lat, lng){
   var mapDiv = document.getElementById('map');
-  var map = new google.maps.Map(mapDiv, {
+  map = new google.maps.Map(mapDiv, {
     center: {lat: lat, lng: lng},
     zoom: 15
   });
@@ -115,6 +129,7 @@ function initMap(lat, lng){
   google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(currCenter);
   })
+
 }
 
 // query.pages.each().coordinates.lat    .coordinates.lon
