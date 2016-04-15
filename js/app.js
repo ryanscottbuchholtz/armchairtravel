@@ -85,7 +85,7 @@ function getWiki() {
     gsradius: 10000,
     gslimit: 10
   };
-  url = 'api.php?action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=144&pilimit=50&wbptterms=description&generator=geosearch&ggscoord=45.786952%7C-122.399523&ggsradius=10000&ggslimit=50';
+  url = 'https://api.php?action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=144&pilimit=50&wbptterms=description&generator=geosearch&ggscoord=45.786952%7C-122.399523&ggsradius=10000&ggslimit=50';
 
   $.getJSON(url, function(data){
     console.log(data);
