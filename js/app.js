@@ -79,6 +79,19 @@ function getRequest(locationInput){
   });
 }
 
+function getWiki() {
+  var params = {
+    gscoord: '37.786952%7C-122.399523',
+    gsradius: 10000,
+    gslimit: 10
+  };
+  url = 'api.php?action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=144&pilimit=50&wbptterms=description&generator=geosearch&ggscoord=45.786952%7C-122.399523&ggsradius=10000&ggslimit=50';
+
+  $.getJSON(url, function(data){
+    console.log(data);
+  })
+}
+
 function initMap(lat, lng){
   var mapDiv = document.getElementById('map');
   var map = new google.maps.Map(mapDiv, {
