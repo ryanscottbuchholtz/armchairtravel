@@ -9,7 +9,6 @@ $(document).ready(function() {
     event.preventDefault();
     travelLocation = $('#location-input').val();
     $('#location-input').val('');
-    console.log(travelLocation);
     $('#question-wrap').hide();
     $('#map').show();
     clearBackground();
@@ -75,19 +74,28 @@ function getRequest(locationInput){
   url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 
   $.getJSON(url, params, function(data){
-    initMap(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
+    lat = data.results[0].geometry.location.lat
+    lng = data.results[0].geometry.location.lng
+    initMap(lat, lng);
   });
 }
 
 function getWiki() {
   var params = {
-    ggscoord: '37.786952%7C-147.399523',
+    prop: 'coordinates|pageimages|pageterms',
+    colimit: 50,
+    piprop: 'thumbnail',
+    pithumbsize: 144,
+    pilimit: 50,
+    wbptterms: 'description',
+    generator: 'geosearch',
+    ggscoord: lat + '|' + lng,
     ggsradius: 10000,
-    ggslimit: 10
+    ggslimit: 50
   };
-  url = 'https://en.wikipedia.org/w/api.php?action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=144&pilimit=50&wbptterms=description&generator=geosearch';
+  url = 'https://en.wikipedia.org/w/api.php?action=query';
 
-  $.getJSON(url, function(data){
+  $.getJSON(url, params).complete(function(data){
     console.log(data);
   })
 }
