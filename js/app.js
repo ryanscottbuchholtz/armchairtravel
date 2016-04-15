@@ -28,7 +28,7 @@ $(document).ready(function() {
 });
 
 function randomBackgroundImage() {
-  $('#index-body').css({'background': 'url(../armchairtravel/assets/' + images[Math.floor(Math.random() * images.length)] + ')'});
+  $('#index-body').css({'background': 'url(../armchairtravel/assets/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
 }
 
 
@@ -117,5 +117,5 @@ function initMap(lat, lng){
   })
 }
 
-query.pages.each().coordinates.lat    .coordinates.lon
+// query.pages.each().coordinates.lat    .coordinates.lon
 
