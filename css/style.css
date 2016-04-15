@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+/*   border: 1px solid orange; */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  width: 100%;
+  height: 100vh;
+}
+
+#index-body {
+  background: url('../assets/IMG_3051.jpg');
+  background-position: left;
+  background-size: cover;
+  background-color: #FCFFF5;
+}
+
+li {
+  list-style: none;
+}
+
+/* Header */
+
+header {
+  background-color: #FCFFF5;
+  height: 100px;
+  opacity: .8;
+  display: flex;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+nav h1 {
+  margin: 0;
+}
+
+#nav-links {
+  display: flex;
+  padding: 0;
+}
+
+#nav-links li {
+  padding-right: 15px;
+}
+
+/* Input */
+
+#question-wrap {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#question-wrap h2 {
+  font-size: 1.3em;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+#location-input {
+  width: 100%;
+  height: 60px;
+  font-size: .8rem;
+  padding-left: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+#location-input:focus {
+  border: 1px solid #D1DBBD;
+  outline: none;
+}
+
+#question {
+  width: 90%;
+  padding: 20px;
+  background-color: #FCFFF5;
+  opacity: .9;
+  padding-bottom: 30px;
+  border-radius: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.fa-plane {
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+}
+
+button {
+  display: none;
+}
+
+
+/* Map */
+
+#map {
+  height: 90%;
+  width: 90%;
+  background-color: #FCFFF5;
+  margin: 0 auto;
+  box-shadow: 0 15px 20px -12px darkgrey;
+  display: none;
+}
+
+
+@media (min-width: 769px) {
+
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  nav h1 {
+    padding-left: 10%;
+  }
+
+  #nav-links {
+    padding-right: 5%;
+  }
+
+  header {
+    height: 70px;
+  }
+
+  #location-input {
+    font-size: 1.2em;
+  }
+
+  #question-wrap h2 {
+    font-size: 1.8em;
+  }
+
+  #question {
+    width: 60%;
+    padding-bottom: 40px;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
