@@ -1,5 +1,7 @@
 var travelLocation = '';
 
+var images = ['IMG_3051.jpg', 'IMG_3055.jpg', 'IMG_3056.jpg', 'IMG_3063.jpg', 'IMG_3067.jpg', 'IMG_3069.jpg', 'IMG_3070.jpg', 'IMG_3071.jpg'];
+
 
 $(document).ready(function() {
 
@@ -11,6 +13,7 @@ $(document).ready(function() {
     $('#question-wrap').hide();
     $('#map').show();
     clearBackground();
+    addIcons();
     getRequest(travelLocation);
   });
 
@@ -18,9 +21,38 @@ $(document).ready(function() {
     replaceBackground();
     $('#question-wrap').show();
     $('#map').hide();
+    addNavLinks();
   });
 
+  randomBackgroundImage();
+
 });
+
+function randomBackgroundImage() {
+  $('#index-body').css({'background': 'url(../armchairtravel/assets/' + images[Math.floor(Math.random() * images.length)] + ')'});
+}
+
+
+function addIcons() {
+  var first = '<i class="fa fa-instagram fa-2x"></i>';
+  var second = '<i class="fa fa-wikipedia-w fa-2x"></i>';
+  var third = '<i class="fa fa-tripadvisor fa-2x"></i>';
+  $('#nav-links li:nth-child(odd)').empty();
+  $('#nav-links li:nth-child(1)').addClass('instagram').append(first);
+  $('#nav-links li:nth-child(3)').addClass('wiki').append(second);
+  $('#nav-links li:nth-child(5)').addClass('trip').append(third);
+}
+
+function addNavLinks() {
+  var first = 'About';
+  var second = 'Help';
+  var third = 'Contact';
+  $('#nav-links li:nth-child(odd)').empty();
+  $('#nav-links li:nth-child(1)').text(first);
+  $('#nav-links li:nth-child(3)').text(second);
+  $('#nav-links li:nth-child(5)').text(third);
+
+}
 
 function clearBackground(){
   $('#index-body').css('background', 'none')
@@ -28,8 +60,8 @@ function clearBackground(){
 }
 
 function replaceBackground(){
-  $('#index-body').css('background', "url(../armchairtravel/assets/IMG_3051.jpg)")
-                  .css('background-size', 'cover')
+  randomBackgroundImage();
+  $('#index-body').css('background-size', 'cover')
                   .css('background-position', 'left')
 }
 

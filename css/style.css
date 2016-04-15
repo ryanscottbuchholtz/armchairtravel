@@ -15,8 +15,9 @@ body {
 }
 
 #index-body {
-  background: url('../assets/IMG_3051.jpg');
+  /* background: url('../assets/IMG_3051.jpg'); */
   background-position: left;
+  background-repeat: none;
   background-size: cover;
   background-color: #FCFFF5;
 }
