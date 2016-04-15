@@ -53,6 +53,7 @@ function addNavLinks() {
   $('#nav-links li:nth-child(1)').text(first);
   $('#nav-links li:nth-child(3)').text(second);
   $('#nav-links li:nth-child(5)').text(third);
+  $('#nav-links li').removeClass();
 
 }
 
@@ -118,7 +119,7 @@ function initMap(lat, lng){
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
     center: {lat: lat, lng: lng},
-    zoom: 15
+    zoom: 16
   });
   var marker = new google.maps.Marker({
     position: {lat: lat, lng: lng},
