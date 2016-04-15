@@ -117,4 +117,5 @@ function initMap(lat, lng){
   })
 }
 
+query.pages.each().coordinates.lat    .coordinates.lon
 
