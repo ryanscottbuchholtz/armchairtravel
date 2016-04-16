@@ -109,20 +109,6 @@ function getWiki(lat, lng) {
         })
       }
   })
-
-  // $.getJSONP(url, params, function(data){
-  //   $.each(data, function(index, value){
-  //     $.each(value.pages, function(index, object){
-  //       console.log(object);
-  //       var marker = new google.maps.Marker({
-  //         position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
-  //         map: map,
-  //         title: object.title,
-  //         url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
-  //         })
-  //       });
-  //     })
-  //   })
 };
 
 function initMap(lat, lng){
