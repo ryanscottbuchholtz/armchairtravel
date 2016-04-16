@@ -20,6 +20,8 @@ $(document).ready(function() {
 
   randomBackgroundImage();
 
+  reCenterNewPins();
+
 });
 
 function randomBackgroundImage() {
@@ -132,6 +134,18 @@ function initMap(lat, lng){
     map.setCenter(currCenter);
   })
 
+}
+
+function reCenterNewPins() {
+  google.maps.event.addListener(map, 'center_changed', function() {
+    var getCenter = map.getCenter();
+    var latitude = center.lat();
+    var longitude = center.lng();
+
+    if (lat != latitude || lng != longitude) {
+      getWiki(latitude, longitude);
+    };
+  })
 }
 
 function autoPlaces() {
