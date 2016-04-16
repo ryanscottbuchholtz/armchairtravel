@@ -5,16 +5,7 @@ var images = ['IMG_3051.jpg', 'IMG_3055.jpg', 'IMG_3056.jpg', 'IMG_3063.jpg', 'I
 
 $(document).ready(function() {
 
-  $('#search').submit(function(event) {
-    event.preventDefault();
-    travelLocation = $('#location-input').val();
-    $('#location-input').val('');
-    $('#question-wrap').hide();
-    $('#map').show();
-    clearBackground();
-    addIcons();
-    getRequest(travelLocation);
-  });
+  autoPlaces();
 
   $('#logo').click(function(){
     replaceBackground();
@@ -132,5 +123,23 @@ function initMap(lat, lng){
   google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(currCenter);
   })
+
+}
+
+function autoPlaces() {
+  var input = document.getElementById('location-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+
+  searchBox.addListener('places_changed', function() {
+    // $('#search').submit(function(event) {
+    // event.preventDefault();
+    travelLocation = $('#location-input').val();
+    $('#location-input').val('');
+    $('#question-wrap').hide();
+    $('#map').show();
+    clearBackground();
+    addIcons();
+    getRequest(travelLocation);
+  });
 }
 
