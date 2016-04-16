@@ -13,7 +13,11 @@ $(document).ready(function() {
     $('#map').show();
     clearBackground();
     addIcons();
-    getRequest(travelLocation);
+    initMap ({
+      address: travelLocation,
+      zoom: 11,
+      mapType: google.maps.MapTypeId.ROADMAP
+    });
   });
 
   $('#logo').click(function(){
@@ -68,21 +72,20 @@ function replaceBackground(){
                   .css('background-position', 'left')
 }
 
+// function getRequest(locationInput){
+//   var key = 'AIzaSyCKI8h94-_C9rS06RcgrHutWTrXhabO0GM';
+//   var params = {
+//     query: locationInput,
+//     key: key
+//   };
+//   url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 
-function getRequest(locationInput){
-  var key = 'AIzaSyCKI8h94-_C9rS06RcgrHutWTrXhabO0GM';
-  var params = {
-    query: locationInput,
-    key: key
-  };
-  url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-
-  $.getJSON(url, params, function(data){
-    lat = data.results[0].geometry.location.lat
-    lng = data.results[0].geometry.location.lng
-    initMap(lat, lng);
-  });
-}
+//   $.getJSON(url, params, function(data){
+//     lat = data.results[0].geometry.location.lat
+//     lng = data.results[0].geometry.location.lng
+//     initMap(lat, lng);
+//   });
+// }
 
 function getWiki(lat, lng) {
   var params = {
@@ -115,23 +118,42 @@ function getWiki(lat, lng) {
     })
 };
 
-function initMap(lat, lng){
-  var mapDiv = document.getElementById('map');
-  map = new google.maps.Map(mapDiv, {
-    center: {lat: lat, lng: lng},
-    zoom: 16
+// function initMap(lat, lng){
+//   var mapDiv = document.getElementById('map');
+  
+//   map = new google.maps.Map(mapDiv, {
+//     center: {lat: lat, lng: lng},
+//     zoom: 16
+//   });
+
+//   var marker = new google.maps.Marker({
+//     position: {lat: lat, lng: lng},
+//     map: map
+//   });
+
+//   var currCenter = map.getCenter();
+//   google.maps.event.addDomListener(window, 'resize', function() {
+//     map.setCenter(currCenter);
+//   })
+// }
+
+function initMap(options) {
+
+  var geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode ({
+    address: options.address
+  },
+  function (results, status) {
+    var myOptions = {
+      zoom: options.zoom,
+      center: results[0].geometry.location,
+      mapTypeId: options.mapType
+    };
+
+  var map = new google.maps.Map(document.getElementById('map'), myOptions);
   });
-  var marker = new google.maps.Marker({
-    position: {lat: lat, lng: lng},
-    map: map
-  });
+};
 
-  var currCenter = map.getCenter();
-  google.maps.event.addDomListener(window, 'resize', function() {
-    map.setCenter(currCenter);
-  })
 
-}
-
-// query.pages.each().coordinates.lat    .coordinates.lon
 
