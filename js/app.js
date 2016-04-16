@@ -91,19 +91,38 @@ function getWiki(lat, lng) {
   };
   url = 'https://en.wikipedia.org/w/api.php?action=query';
 
-  $.getJSON(url, params, function(data){
-    $.each(data, function(index, value){
-      $.each(value.pages, function(index, object){
-        console.log(object);
-        var marker = new google.maps.Marker({
-          position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
-          map: map,
-          title: object.title,
-          url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
-          })
-        });
-      })
-    })
+  $.ajax({
+    url: url,
+    data: params,
+    dataType: 'jsonp',
+    success: function(data){
+      $.each(data, function(index, value){
+        $.each(value.pages, function(index, object){
+          console.log(object);
+          var marker = new google.maps.Marker({
+            position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
+            map: map,
+            title: object.title,
+            url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
+            })
+          });
+        })
+      }
+  })
+
+  // $.getJSONP(url, params, function(data){
+  //   $.each(data, function(index, value){
+  //     $.each(value.pages, function(index, object){
+  //       console.log(object);
+  //       var marker = new google.maps.Marker({
+  //         position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
+  //         map: map,
+  //         title: object.title,
+  //         url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
+  //         })
+  //       });
+  //     })
+  //   })
 };
 
 function initMap(lat, lng){
