@@ -1,7 +1,7 @@
 var travelLocation = '';
 
-var images = ['IMG_3051.jpg', 'IMG_3055.jpg', 'IMG_3056.jpg', 'IMG_3063.jpg', 'IMG_3067.jpg', 'IMG_3069.jpg', 'IMG_3070.jpg', 'IMG_3071.jpg'];
-
+var images = ['assets/IMG_3051.jpg', 'assets/IMG_3055.jpg', 'assets/IMG_3056.jpg', 'assets/IMG_3063.jpg', 'assets/IMG_3067.jpg', 'assets/IMG_3069.jpg', 'assets/IMG_3070.jpg', 'assets/IMG_3071.jpg'];
+var currentImage = 0;
 
 $(document).ready(function() {
 
@@ -19,10 +19,11 @@ $(document).ready(function() {
   });
 
   randomBackgroundImage();
+
 });
 
 function randomBackgroundImage() {
-  $('#index-body').css({'background': 'url(../armchairtravel/assets/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
+  $('#index-body').css({'background': 'url(../armchairtravel/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
 }
 
 
@@ -103,6 +104,7 @@ function getWiki(lat, lng) {
             position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
             map: map,
             title: object.title,
+            animation: google.maps.Animation.DROP,
             url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
             })
           });
@@ -121,7 +123,8 @@ function initMap(lat, lng){
 
   var marker = new google.maps.Marker({
     position: {lat: lat, lng: lng},
-    map: map
+    map: map,
+    animation: google.maps.Animation.DROP,
   });
 
   var currCenter = map.getCenter();
@@ -139,12 +142,17 @@ function autoPlaces() {
     // $('#search').submit(function(event) {
     // event.preventDefault();
     travelLocation = $('#location-input').val();
+    
+    getRequest(travelLocation);
+    
     $('#location-input').val('');
     $('#question-wrap').hide();
     $('#map').show();
+  
     clearBackground();
+  
     addIcons();
-    getRequest(travelLocation);
   });
 }
+
 
