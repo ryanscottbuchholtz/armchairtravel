@@ -92,7 +92,7 @@ function getWiki(lat, lng) {
     generator: 'geosearch',
     ggscoord: lat + '|' + lng,
     ggsradius: 10000,
-    ggslimit: 100
+    ggslimit: 250
   };
   url = 'https://en.wikipedia.org/w/api.php?action=query';
 
@@ -105,7 +105,7 @@ function getWiki(lat, lng) {
         $.each(value.pages, function(index, object){
           console.log(object);
           var marker = new google.maps.Marker({
-            position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
+            position: {lat: object.coordinates ? object.coordinates[0].lat: "not available", lng: object.coordinates ? object.coordinates[0].lon: "not available"},
             map: map,
             title: object.title,
             url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
