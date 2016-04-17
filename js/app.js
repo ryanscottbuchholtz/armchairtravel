@@ -10,17 +10,20 @@ $(document).ready(function() {
   $('#logo').click(function(){
     replaceBackground();
     $('#question-wrap').show();
-    $('#map').hide();
+    $('#map').empty().hide();
+    $('#location-input').val('');
     addNavLinks();
-  });
-
-  $(document).on('click', '.wiki', function(){   //due to 'created' element
-    getWiki(lat, lng);
   });
 
   randomBackgroundImage();
 
-  reCenterNewPins();
+  $('#map').click(function(){
+    newPinsOnMove();
+  });
+
+  $(window).resize(function() {
+    centerMap();
+  });
 
 });
 
@@ -28,15 +31,14 @@ function randomBackgroundImage() {
   $('#index-body').css({'background': 'url(../armchairtravel/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
 }
 
-
 function addIcons() {
   var first = '<i class="fa fa-instagram fa-2x"></i>';
   var second = '<i class="fa fa-wikipedia-w fa-2x"></i>';
   var third = '<i class="fa fa-tripadvisor fa-2x"></i>';
   $('#nav-links li:nth-child(odd)').empty();
-  $('#nav-links li:nth-child(1)').addClass('instagram').append(first);
-  $('#nav-links li:nth-child(3)').addClass('wiki').append(second);
-  $('#nav-links li:nth-child(5)').addClass('trip').append(third);
+  $('#nav-links li:nth-child(1)').append(first);
+  $('#nav-links li:nth-child(3)').append(second);
+  $('#nav-links li:nth-child(5)').append(third);
 }
 
 function addNavLinks() {
@@ -74,7 +76,7 @@ function getRequest(locationInput){
     lat = data.results[0].geometry.location.lat
     lng = data.results[0].geometry.location.lng
     initMap(lat, lng);
-    console.log(data);
+    // console.log(data);
   });
 }
 
@@ -106,7 +108,6 @@ function getWiki(lat, lng) {
             position: {lat: object.coordinates[0].lat, lng: object.coordinates[0].lon},
             map: map,
             title: object.title,
-            animation: google.maps.Animation.DROP,
             url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
             })
           });
@@ -127,34 +128,32 @@ function initMap(lat, lng){
     position: {lat: lat, lng: lng},
     map: map,
     animation: google.maps.Animation.DROP,
-  });
+  }); 
+  getWiki(lat, lng);
+}
 
+function centerMap() {
   var currCenter = map.getCenter();
   google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(currCenter);
-  })
-
+  });
 }
 
-function reCenterNewPins() {
-  google.maps.event.addListener(map, 'center_changed', function() {
+function newPinsOnMove(){
     var getCenter = map.getCenter();
-    var latitude = center.lat();
-    var longitude = center.lng();
-
-    if (lat != latitude || lng != longitude) {
-      getWiki(latitude, longitude);
-    };
-  })
+    var latitude = getCenter.lat();
+    var longitude = getCenter.lng();
+    getWiki(latitude, longitude);
 }
+
 
 function autoPlaces() {
   var input = document.getElementById('location-input');
   var searchBox = new google.maps.places.SearchBox(input);
 
   searchBox.addListener('places_changed', function() {
-    // $('#search').submit(function(event) {
-    // event.preventDefault();
+    $('#search').submit(function(event) {
+    event.preventDefault();
     travelLocation = $('#location-input').val();
     
     getRequest(travelLocation);
@@ -166,7 +165,9 @@ function autoPlaces() {
     clearBackground();
   
     addIcons();
-  });
+    
+    });
+  })
 }
 
 
