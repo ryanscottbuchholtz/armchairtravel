@@ -127,6 +127,7 @@ function initMap(lat, lng){
   var marker = new google.maps.Marker({
     position: {lat: lat, lng: lng},
     map: map,
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
     animation: google.maps.Animation.DROP,
   }); 
   getWiki(lat, lng);
