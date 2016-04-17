@@ -117,7 +117,7 @@ function getWiki(lat, lng) {
             this.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
             });
           google.maps.event.addListener(marker, 'click', function(event) {
-            window.open(this.url);
+            window.open("http:en.wikipedia.org/wiki?curid=" + object.pageid);
             });
           });
         })
