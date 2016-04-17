@@ -108,7 +108,7 @@ function getWiki(lat, lng) {
             position: {lat: object.coordinates ? object.coordinates[0].lat: "not available", lng: object.coordinates ? object.coordinates[0].lon: "not available"},
             map: map,
             title: object.title,
-            url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
+            url: "https://en.wikipedia.org/wiki?curid=" + object.pageid
             })
           google.maps.event.addListener(marker, 'mouseover', function(event) {
             this.setIcon(object.thumbnail.source);
@@ -117,7 +117,7 @@ function getWiki(lat, lng) {
             this.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
             });
           google.maps.event.addListener(marker, 'click', function(event) {
-            window.open("http:en.wikipedia.org/wiki?curid=" + object.pageid);
+            window.open(this.url);
             });
           });
         })
