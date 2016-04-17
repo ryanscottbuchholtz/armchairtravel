@@ -110,6 +110,15 @@ function getWiki(lat, lng) {
             title: object.title,
             url: "http:en.wikipedia.org/wiki?curid=" + object.pageid
             })
+          google.maps.event.addListener(marker, 'mouseover', function(event) {
+            this.setIcon(object.thumbnail.source);
+            });
+          google.maps.event.addListener(marker, 'mouseout', function(event) {
+            this.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+            });
+          google.maps.event.addListener(marker, 'click', function(event) {
+            window.open(this.url);
+            });
           });
         })
       }
