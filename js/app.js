@@ -16,6 +16,10 @@ $(document).ready(function() {
     addNavLinks();
   });
 
+  $('.fa-plane').click(function() {
+    submitLocation();
+  });
+
   randomBackgroundImage();
 
   $('#map').click(function(){
@@ -167,10 +171,21 @@ function autoPlaces() {
   var searchBox = new google.maps.places.SearchBox(input);
 
   searchBox.addListener('places_changed', function() {
-    $('#search').submit(function(event) {
+     submitLocation();
+    })
+}
+
+function removeMarkers() {
+  for (i=0; i < gmarkers.length; i++) {
+    gmarkers[i].setMap(null);
+  }
+}
+
+function submitLocation() {
+  $('#search').submit(function(event) {
     event.preventDefault();
     travelLocation = $('#location-input').val();
-    
+
     getRequest(travelLocation);
     
     $('#location-input').val('');
@@ -180,14 +195,6 @@ function autoPlaces() {
     clearBackground();
   
     addIcons();
-    
-    });
-  })
-}
-
-function removeMarkers() {
-  for (i=0; i < gmarkers.length; i++) {
-    gmarkers[i].setMap(null);
-  }
+  });
 }
 
