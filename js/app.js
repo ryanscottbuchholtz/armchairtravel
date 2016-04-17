@@ -1,4 +1,5 @@
 var travelLocation = '';
+var gmarkers = [];
 
 var images = ['assets/IMG_3051.jpg', 'assets/IMG_3055.jpg', 'assets/IMG_3056.jpg', 'assets/IMG_3063.jpg', 'assets/IMG_3067.jpg', 'assets/IMG_3069.jpg', 'assets/IMG_3070.jpg', 'assets/IMG_3071.jpg'];
 var currentImage = 0;
@@ -110,6 +111,8 @@ function getWiki(lat, lng) {
             title: object.title,
             url: "https://en.wikipedia.org/wiki?curid=" + object.pageid
             })
+          gmarkers.push(marker);
+          console.log(gmarkers.length);
           google.maps.event.addListener(marker, 'mouseover', function(event) {
             this.setIcon(object.thumbnail.source);
             });
@@ -150,10 +153,12 @@ function centerMap() {
 }
 
 function newPinsOnMove(){
-    var getCenter = map.getCenter();
-    var latitude = getCenter.lat();
-    var longitude = getCenter.lng();
-    getWiki(latitude, longitude);
+  removeMarkers();
+  gmarkers = [];
+  var getCenter = map.getCenter();
+  var latitude = getCenter.lat();
+  var longitude = getCenter.lng();
+  getWiki(latitude, longitude);
 }
 
 
@@ -180,4 +185,9 @@ function autoPlaces() {
   })
 }
 
+function removeMarkers() {
+  for (i=0; i < gmarkers.length; i++) {
+    gmarkers[i].setMap(null);
+  }
+}
 
