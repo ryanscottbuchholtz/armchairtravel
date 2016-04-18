@@ -8,16 +8,17 @@ $(document).ready(function() {
 
   autoPlaces();
 
+  $('#search').submit(function(event) {
+    event.preventDefault();
+    submitLocation();
+  });
+
   $('#logo').click(function(){
     replaceBackground();
     $('#question-wrap').show();
     $('#map').empty().hide();
     $('#location-input').val('');
     addNavLinks();
-  });
-
-  $('.fa-plane').click(function() {
-    submitLocation();
   });
 
   randomBackgroundImage();
@@ -91,7 +92,7 @@ function getWiki(lat, lng) {
     colimit: 50,
     piprop: 'thumbnail',
     pithumbsize: 144,
-    pilimit: 50,
+    pilimit: 250,
     format: 'json',
     wbptterms: 'description',
     generator: 'geosearch',
@@ -171,8 +172,8 @@ function autoPlaces() {
   var searchBox = new google.maps.places.SearchBox(input);
 
   searchBox.addListener('places_changed', function() {
-     submitLocation();
-    })
+    submitLocation();
+  });
 }
 
 function removeMarkers() {
@@ -182,19 +183,16 @@ function removeMarkers() {
 }
 
 function submitLocation() {
-  $('#search').submit(function(event) {
-    event.preventDefault();
-    travelLocation = $('#location-input').val();
+  travelLocation = $('#location-input').val();
 
-    getRequest(travelLocation);
+  getRequest(travelLocation);
     
-    $('#location-input').val('');
-    $('#question-wrap').hide();
-    $('#map').show();
+  $('#location-input').val('');
+  $('#question-wrap').hide();
+  $('#map').show();
   
-    clearBackground();
+  clearBackground();
   
-    addIcons();
-  });
+  addIcons(); 
 }
 
