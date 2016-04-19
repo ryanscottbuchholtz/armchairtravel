@@ -34,7 +34,7 @@ $(document).ready(function() {
 });
 
 function randomBackgroundImage() {
-  $('#index-body').css({'background': 'url(../armchairtravel/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
+  $('#bg-img').css({'background': 'url(../armchairtravel/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat'});
 }
 
 function addIcons() {
